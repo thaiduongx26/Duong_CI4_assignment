@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Vector;
 
 /**
  * Created by qhuydtvt on 4/24/2016.
@@ -24,13 +25,37 @@ public class GameWindow extends Frame implements Runnable {
 
     PlaneController planeController2;
 
+    PlaneDirection planeDirection2 = PlaneDirection.NONE;
+    PlaneDirection planeDirection3 = PlaneDirection.NONE;
+
+
     Calendar calendar;
+//    EnemyController enemyController1;
+//    EnemyController enemyController2 ;
+//    EnemyController enemyController3 ;
 
     EnemyController enemyController;
+//    Vector<EnemyController> enemyControllerVector;
+//
+//    EnemyController[] enemyControllers;
 
     public GameWindow () {
         this.setVisible(true);
         this.setSize(400, 600);
+
+//        enemyControllerVector = new Vector<EnemyController>();
+
+//        enemyControllers = new EnemyController[2];
+//        enemyController1 = EnemyController.getEnemyController(20);
+//        enemyControllerVector.add(enemyController1);
+//
+
+
+//        enemyController2.getEnemyController(enemyController2,20);
+//
+//        enemyController3.getEnemyController(enemyController3,300);
+
+
 
         this.planeController1 = PlaneController.getPlaneController1();
 
@@ -145,18 +170,35 @@ public class GameWindow extends Frame implements Runnable {
 
             @Override
             public void mouseMoved(MouseEvent e) {
-//                dx2 = e.getX();
-//                dy2 = e.getY();
-//x2 => e.getX(); y2 => e.getY()
-
-//                if(e.getX() - 5 > x2) {
-//                    dx2 = 5;
-//                } else if(e.getX() +5 < x2) {
-//                    dx2 = -5;
-//                } else {
-//                    dx2 = 0;
-//                }
+                planeController2.setxOfMouse(e.getXOnScreen());
+                planeController2.setyOfMouse(e.getYOnScreen());
                 System.out.println("mouseMoved");
+            }
+        });
+        this.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                planeController2.shot();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
             }
         });
         thread = new Thread(this);
@@ -171,9 +213,14 @@ public class GameWindow extends Frame implements Runnable {
             backbufferImage =  new BufferedImage(400, 600, 1);
         }
         Graphics backbufferGraphics = backbufferImage.getGraphics();
+
         backbufferGraphics.drawImage(backgroundImage, 0, 0, null);
-        planeController1.paint(backbufferGraphics);
         planeController2.paint(backbufferGraphics);
+        planeController1.paint(backbufferGraphics);
+
+//        for (EnemyController enemyController1:enemyControllers){
+//            enemyController1.paint(backbufferGraphics);
+//        }
         enemyController.paint(backbufferGraphics);
 
         g.drawImage(backbufferImage, 0, 0, null);
@@ -189,40 +236,20 @@ public class GameWindow extends Frame implements Runnable {
 
             try {
 
-//                PlaneDirection planeDirection1 = PlaneDirection.NONE;
-//                Point mousePoint = MouseInfo.getPointerInfo().getLocation();
-//                mousePoint.x -= getLocationOnScreen().x;
-//                mousePoint.y -= getLocationOnScreen().y;
-//
-//                if(mousePoint.x - 40 > planeController2.getGameObject().getX()) {
-//                    planeDirection1 = PlaneDirection.RIGHT;
-//                } else if(mousePoint.x -30 < planeController2.getGameObject().getX()) {
-//                    planeDirection1 = PlaneDirection.LEFT;
-//                } else {
-//                    planeDirection1 = PlaneDirection.STOP_X;
-//                }
-//                planeController2.move(planeDirection1);
-//
-//                if(mousePoint.y - 35 > planeController2.getGameObject().getY()) {
-//                    planeDirection1 = PlaneDirection.DOWN;
-//                } else if(mousePoint.y - 25 < planeController2.getGameObject().getY()) {
-//                    planeDirection1 = PlaneDirection.UP;
-//                } else {
-//                    planeDirection1 = PlaneDirection.STOP_Y;
-//                }
-//
-//                planeController2.move(planeDirection1);
-//
-//                planeController2.run();
-
-                planeController1.run();
-                calendar = Calendar.getInstance();
-
-
                 enemyController.run();
 
-                repaint();
+                planeController1.run();
+                planeDirection2 = planeController2.planeDirection1(planeController2.getxOfMouse());
 
+                planeDirection3 = planeController2.planeDirection2(planeController2.getyOfMouse());
+                planeController2.move(planeDirection2);
+                planeController2.move(planeDirection3);
+                planeController2.run();
+                planeController1.check(enemyController);
+                planeController2.check(enemyController);
+
+
+                repaint();
 
                 Thread.sleep(17);
 

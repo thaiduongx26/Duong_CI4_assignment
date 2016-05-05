@@ -3,14 +3,12 @@ package vn.edu.techkids.controllers;
 import vn.edu.techkids.models.Bullet;
 import vn.edu.techkids.models.EnemyBullet;
 import vn.edu.techkids.models.EnemyPlane;
-import vn.edu.techkids.models.GameObject;
 import vn.edu.techkids.views.GameDrawer;
 import vn.edu.techkids.views.ImageDrawer;
 
 import java.awt.*;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -18,11 +16,18 @@ import java.util.Vector;
  */
 public class EnemyController extends SingleController{
 
+    private int x ;
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
     private int count = 0 ;
 
     private final int SPEED = 3;
 
     Calendar calendar;
+
 
 
     Vector<EnemyBulletController> enemyBulletControllerVector ;
@@ -33,7 +38,7 @@ public class EnemyController extends SingleController{
         enemyBulletControllerVector = new Vector<EnemyBulletController>();
     }
 
-    private static EnemyController enemyController;
+    public static EnemyController enemyController;
 
     private EnemyBullet enemyBullet;
 
@@ -89,6 +94,7 @@ public class EnemyController extends SingleController{
 
     @Override
     public void paint(Graphics g) {
+
         super.paint(g);
 
 
@@ -97,4 +103,5 @@ public class EnemyController extends SingleController{
         }
 
     }
+
 }

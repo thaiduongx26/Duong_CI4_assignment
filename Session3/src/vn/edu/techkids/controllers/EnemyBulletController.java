@@ -16,4 +16,7 @@ public class EnemyBulletController extends SingleController {
         super(gameObject, gameDrawer);
         gameVector.dy = SPEED;
     }
+
+
+
 }
