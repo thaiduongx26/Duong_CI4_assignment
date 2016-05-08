@@ -30,6 +30,11 @@ public class EnemyBullet extends GameObject {
 
     /* ----------------------------------------*/
 
+    /* Damage */
+
+    public static final int DAMAGE_BULLET_RIGHT_TO_LEFT = 3;
+    /*-----------------*/
+
     public EnemyBullet(int x, int y, int width, int height) {
         super(x, y, width, height);
     }

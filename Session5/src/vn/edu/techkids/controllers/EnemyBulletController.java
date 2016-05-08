@@ -55,7 +55,7 @@ public class EnemyBulletController extends SingleController implements Colliable
                     break;
                 case EnemyBullet.TYPE_CROSS_RIGHT_TO_LEFT:
                     plane = (Plane) c.getGameObject();
-                    plane.decreaseHP(3);
+                    plane.decreaseHP(EnemyBullet.DAMAGE_BULLET_RIGHT_TO_LEFT);
                     if (plane.getHp() <= 0) {
                         plane.setAlive(false);
                     }
