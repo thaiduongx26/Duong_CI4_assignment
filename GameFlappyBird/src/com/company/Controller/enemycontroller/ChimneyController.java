@@ -17,11 +17,13 @@ import java.util.Vector;
  */
 public class ChimneyController extends SingleController implements Colliable {
 
+    public int speed = 2;
     public ChimneyController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
-        this.gameVector.dx = -2;
+        this.gameVector.dx = -speed;
         CollisionPool.getInst().add(this);
     }
+
 
     @Override
     public void run() {

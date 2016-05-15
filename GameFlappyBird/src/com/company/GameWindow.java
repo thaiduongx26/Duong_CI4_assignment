@@ -1,7 +1,11 @@
 package com.company;
 /* TODO packaage exanplation */
 
+import com.company.Controller.BirdController;
+import com.company.Controller.enemycontroller.ChimneyController;
+import com.company.Controller.enemycontroller.ChimneyControllerManager;
 import com.company.Models.GameConfig;
+import com.company.Models.Score;
 import com.company.gamescenes.*;
 //import vn.edu.techkids.gamescenes.*;
 //import vn.edu.techkids.models.GameConfig;
@@ -10,6 +14,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 
 /**
  * Created by qhuydtvt on 4/24/2016.
@@ -163,6 +168,18 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
 
 
                 gameScence.run();
+                if (!BirdController.getBirdController().getGameObject().isAlive()){
+                    gameScence = new ExitGameScence();
+                }
+//                if (ExitGameScence.isCheck() && gameScence instanceof ExitGameScence){
+////                    ChimneyControllerManager.getInst().setTmp(0);
+////                    System.out.println(ChimneyControllerManager.cout);
+//                    gameScence.;
+////                    PlayGameScence.getInst().again();
+//                    ExitGameScence.setCheck(false);
+//                    Score.score = 0;
+//                    gameScence.run();
+//                }
 
 //                planeController1.run();
 //                EnemyBulletControllerManager.getInst().run();
@@ -187,7 +204,7 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
                 gameScence = new PlayGameScence();
                 break;
             case EXIT :
-                gameScence = new MenuGameScence();
+                gameScence = new ExitGameScence();
                 break;
         }
     }

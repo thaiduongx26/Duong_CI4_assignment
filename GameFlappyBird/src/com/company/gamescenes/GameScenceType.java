@@ -6,6 +6,7 @@ package com.company.gamescenes;
 public enum GameScenceType {
     MENU,
     PLAY,
-    EXIT
+    EXIT,
+    RESTART
 
 }

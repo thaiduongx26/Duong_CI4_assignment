@@ -14,9 +14,10 @@ import java.awt.event.KeyEvent;
 public class MenuGameScence extends GameScence {
 
     Image backgoundImage;
-
+    Image image;
     public MenuGameScence() {
         this.backgoundImage = Utils.loadImage("resources/background.png");
+        this.image = Utils.loadImage("resources/getready.png");
     }
 
     @Override
@@ -28,6 +29,7 @@ public class MenuGameScence extends GameScence {
     public void paint(Graphics g) {
         g.drawImage(this.backgoundImage, 0, 0,
                 GameConfig.getInst().getScreenWidth(), GameConfig.getInst().getScreenHeight(), null);
+        g.drawImage(this.image,200,200,450,225,null);
     }
 
     @Override

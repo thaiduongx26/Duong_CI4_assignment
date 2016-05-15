@@ -25,11 +25,11 @@ public class BirdController extends SingleController implements Colliable {
     public void move(BirdDirection birdDirection) {
         switch (birdDirection) {
             case SPACE:
-                gameVector.dy = -5;
+                gameVector.dy = -6;
 //                gameVector.dx = ;
                 break;
             case NONE:
-                gameVector.dy = 3;
+                gameVector.dy = 4;
                 break;
         }
     }
@@ -49,16 +49,17 @@ public class BirdController extends SingleController implements Colliable {
     @Override
     public void run() {
         if (this.gameObject.isAlive()) {
+//            SingleController.setIsPause(false);
             Rectangle pointNext = this.gameObject.getNextRect(gameVector);
             if (GameConfig.getInst().isInScreen(pointNext)) {
                 super.run();
-
             } else {
                 this.gameObject.setAlive(false);
             }
-        }else {
-            SingleController.setIsPause(true);
         }
+//        else {
+//            SingleController.setIsPause(true);
+//        }
 
     }
 
