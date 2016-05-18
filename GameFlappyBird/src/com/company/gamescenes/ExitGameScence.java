@@ -37,8 +37,8 @@ public class ExitGameScence extends GameScence {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(this.exitBackground, 200, 200,
-                500, 250, null);
+        g.drawImage(this.exitBackground, 50, 100,
+                300, 175, null);
     }
 
     @Override

@@ -56,50 +56,21 @@ public class PlayGameScence extends GameScence {
         }
     }
 
-    public void again(){
-        gameConfig = GameConfig.getInst();
-        for (Controller controller:controllerVect){
-            if ((controller instanceof ChimneyControllerManager)){
-                ((ChimneyControllerManager) controller).getGameObject().setAlive(false);
-            }
-        }
 
-        controllerVect.add(ChimneyControllerManager.getInst());
-        ChimneyControllerManager.cout = BirdController.getBirdController().getGameObject().getX()+300;
-//        controllerVect.add(EnemyBulletControllerManager.getInst());
-//        controllerVect.add(BirdController.getBirdController());
-//        controllerVect.add(new BombControllerManager());
-
-        this.birdController = BirdController.getBirdController();
-        this.groundController = GroundController.getGroundController();
-
-        try {
-            backgroundImage = ImageIO.read(new File("resources/background.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void run() {
-        CollisionPool.getInst().run();
+//        CollisionPool.getInst().run();
 
-        if (!BirdController.getBirdController().getGameObject().isAlive()) {
-            changeGameScene(GameScenceType.EXIT);
-        }else {
-            for(Controller controller : controllerVect) {
-//                if (Score.score % 5 == 0 && Score.score != 0 && countScore == 0) {
-//                    ChimneyController.setSpeed(ChimneyController.speed + 3);
-//                    countScore = 1;
-//                }
-//                else countScore =0;
-                controller.run();
-            }
+
+        for (Controller controller: controllerVect){
+            controller.run();
         }
 
+    }
+    public void reset(){
 
     }
-
 
 
 

@@ -29,7 +29,7 @@ public class MenuGameScence extends GameScence {
     public void paint(Graphics g) {
         g.drawImage(this.backgoundImage, 0, 0,
                 GameConfig.getInst().getScreenWidth(), GameConfig.getInst().getScreenHeight(), null);
-        g.drawImage(this.image,200,200,450,225,null);
+        g.drawImage(this.image,50,100,300,150,null);
     }
 
     @Override

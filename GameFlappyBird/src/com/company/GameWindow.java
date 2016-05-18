@@ -168,13 +168,15 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
 
 
                 gameScence.run();
-                if (!BirdController.getBirdController().getGameObject().isAlive()){
-                    gameScence = new ExitGameScence();
-                }
+//                if (!BirdController.getBirdController().getGameObject().isAlive()){
+//                    gameScence = new ExitGameScence();
+//                }
 //                if (ExitGameScence.isCheck() && gameScence instanceof ExitGameScence){
 ////                    ChimneyControllerManager.getInst().setTmp(0);
 ////                    System.out.println(ChimneyControllerManager.cout);
-//                    gameScence.;
+//                    PlayGameScence.getInst().reset();
+//                    gameScence = new PlayGameScence();
+//
 ////                    PlayGameScence.getInst().again();
 //                    ExitGameScence.setCheck(false);
 //                    Score.score = 0;

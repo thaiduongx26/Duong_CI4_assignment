@@ -5,6 +5,7 @@ import com.company.Models.Bird;
 import com.company.Models.Enemy;
 import com.company.Models.GameConfig;
 import com.company.Models.GameObject;
+import com.company.View.AnimationDrawer;
 import com.company.View.GameDrawer;
 import com.company.View.ImageDrawer;
 
@@ -45,6 +46,10 @@ public class BirdController extends SingleController implements Colliable {
         return birdController;
     }
 
+    public static void resetBirdController(){
+         birdController = null;
+    }
+
 
     @Override
     public void run() {
@@ -79,5 +84,6 @@ public class BirdController extends SingleController implements Colliable {
         if(!GameConfig.getInst().isInScreen(this.gameObject.getNextRect(gameVector))){
             this.getGameObject().setAlive(false);
         }
+
     }
 }
