@@ -1,19 +1,13 @@
-package com.company.gamescenes;
+package com.company.gamesences;
 
 import com.company.Controller.*;
-import com.company.Controller.enemycontroller.ChimneyController;
 import com.company.Controller.enemycontroller.ChimneyControllerManager;
-import com.company.GameWindow;
-import com.company.Models.Bird;
 import com.company.Models.GameConfig;
-import com.company.Models.GameObject;
 import com.company.Models.Score;
-
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -29,7 +23,9 @@ public class PlayGameScence extends GameScence {
     private Vector<Controller> controllerVect;
     private GameConfig gameConfig;
     private GroundController groundController;
+    private ChimneyControllerManager chimneyControllerManager;
 
+    public static boolean checkDeleteChimney = false;
 
 //    public static boolean isCheck() {
 //        return check;
@@ -41,11 +37,14 @@ public class PlayGameScence extends GameScence {
 
     public PlayGameScence() {
       //  PlayGameScence.setCheck(true);
+        System.out.println("dang o Play ");
         gameConfig = GameConfig.getInst();
         controllerVect = new Vector<Controller>();
+//        PlayGameScence.getInst().reset();
         controllerVect.add(BirdController.getBirdController());
 //        controllerVect.add(new BombControllerManager());
-        controllerVect.add(ChimneyControllerManager.getInst());
+        chimneyControllerManager = new ChimneyControllerManager();
+        controllerVect.add(chimneyControllerManager);
         this.birdController = BirdController.getBirdController();
         this.groundController = GroundController.getGroundController();
 
@@ -56,21 +55,31 @@ public class PlayGameScence extends GameScence {
         }
     }
 
-
+    public void reset(){
+        Iterator<Controller> iterator= controllerVect.iterator();
+        while (iterator.hasNext()){
+            Controller c = iterator.next();
+            iterator.remove();
+        }
+        checkDeleteChimney = true;
+    }
 
     @Override
     public void run() {
-//        CollisionPool.getInst().run();
-
-
-        for (Controller controller: controllerVect){
-            controller.run();
+        CollisionPool.getInst().run();
+        if (BirdController.getBirdController().getGameObject().isAlive())
+            for (Controller controller: controllerVect){
+                controller.run();
+                System.out.println("xxx");
+            }
+        else {
+            this.reset();
+            changeGameScene(GameScenceType.EXIT);
+//            PlayGameScence.getInst().reset();
         }
 
     }
-    public void reset(){
 
-    }
 
 
 

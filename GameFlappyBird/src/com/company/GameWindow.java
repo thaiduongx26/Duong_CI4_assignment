@@ -2,11 +2,15 @@ package com.company;
 /* TODO packaage exanplation */
 
 import com.company.Controller.BirdController;
+import com.company.Controller.CollisionPool;
 import com.company.Controller.enemycontroller.ChimneyController;
 import com.company.Controller.enemycontroller.ChimneyControllerManager;
 import com.company.Models.GameConfig;
 import com.company.Models.Score;
-import com.company.gamescenes.*;
+import com.company.gamesences.*;
+import com.company.gamesences.ExitGameScence;
+import com.company.gamesences.GameScenceType;
+import com.company.gamesences.PlayGameScence;
 //import vn.edu.techkids.gamescenes.*;
 //import vn.edu.techkids.models.GameConfig;
 
@@ -112,7 +116,7 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
 //                } else {
 //                    dx2 = 0;
 //                }
-               // System.out.println("mouseMoved");
+                // System.out.println("mouseMoved");
             }
         });
         thread = new Thread(this);
@@ -163,18 +167,32 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
 //                } else {
 //                    plane2.dy = 0;
 //                }
- //               plane2.run();
-
+                //               plane2.run();
 
 
                 gameScence.run();
+
 //                if (!BirdController.getBirdController().getGameObject().isAlive()){
 //                    gameScence = new ExitGameScence();
 //                }
+////
+////
+//                if (ExitGameScence.isCheck() && gameScence instanceof ExitGameScence){
+//                    ExitGameScence.setCheck(false);
+//                    PlayGameScence.getInst().reset();
+//                    gameScence = new PlayGameScence();
+//
+////                    gameScence.run();
+//                }
+
+//                if(gameScence instanceof MenuGameScence && MenuGameScence.check == true){
+//                    gameScence = new PlayGameScence();
+//                }
+
 //                if (ExitGameScence.isCheck() && gameScence instanceof ExitGameScence){
 ////                    ChimneyControllerManager.getInst().setTmp(0);
 ////                    System.out.println(ChimneyControllerManager.cout);
-//                    PlayGameScence.getInst().reset();
+////                    PlayGameScence.getInst().reset();
 //                    gameScence = new PlayGameScence();
 //
 ////                    PlayGameScence.getInst().again();
@@ -182,6 +200,7 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
 //                    Score.score = 0;
 //                    gameScence.run();
 //                }
+//                CollisionPool.getInst().run();
 
 //                planeController1.run();
 //                EnemyBulletControllerManager.getInst().run();
@@ -204,9 +223,18 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
         switch (gameScenceType) {
             case PLAY:
                 gameScence = new PlayGameScence();
+                System.out.println("playgame");
+                gameScence.setGameSceneListener(this);
                 break;
             case EXIT :
                 gameScence = new ExitGameScence();
+                gameScence.setGameSceneListener(this);
+                break;
+            case RESTART:
+//                gameScence = null;
+//                PlayGameScence.getInst().reset();
+                gameScence = new PlayGameScence();
+                gameScence.setGameSceneListener(this);
                 break;
         }
     }

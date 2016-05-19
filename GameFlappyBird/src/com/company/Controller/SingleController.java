@@ -14,7 +14,8 @@ public class SingleController implements Controller {
     protected GameObject gameObject;
     protected GameDrawer gameDrawer;
     protected GameVector gameVector;
-    protected static boolean isPause ;
+    protected static boolean isPause = false ;
+
     public SingleController(GameObject gameObject, GameDrawer gameDrawer) {
         this.gameObject = gameObject;
         this.gameDrawer = gameDrawer;

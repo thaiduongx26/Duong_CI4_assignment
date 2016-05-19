@@ -1,18 +1,19 @@
-package com.company.gamescenes;
+package com.company.gamesences;
 
 import com.company.Models.GameConfig;
 import com.company.Utils;
-//import vn.edu.techkids.Utils;
-//import vn.edu.techkids.models.GameConfig;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+
+//import vn.edu.techkids.Utils;
+//import vn.edu.techkids.models.GameConfig;
 
 /**
  * Created by qhuydtvt on 5/13/2016.
  */
 public class MenuGameScence extends GameScence {
-
+    public static boolean check = false;
     Image backgoundImage;
     Image image;
     public MenuGameScence() {
@@ -36,6 +37,7 @@ public class MenuGameScence extends GameScence {
     public void onKeyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             changeGameScene(GameScenceType.PLAY);
+            check = true;
         }
     }
 

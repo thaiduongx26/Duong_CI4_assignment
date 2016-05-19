@@ -22,8 +22,6 @@ public class ControllerManager implements Controller {
         return singleControllerVector.size();
     }
 
-
-
     @Override
     public void run() {
         Iterator<SingleController> iterator = singleControllerVector.iterator();

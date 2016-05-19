@@ -29,6 +29,7 @@ public class CollisionPool {
                 iterator.remove();
             }
         }
+        System.out.println(colliableVector.size());
         for (int i = 0; i < colliableVector.size() - 1; i++) {
             for(int j = i + 1; j < colliableVector.size();j++) {
                 Colliable ci = colliableVector.get(i);
@@ -38,6 +39,7 @@ public class CollisionPool {
                 if(ri.intersects(rj)){
                     ci.onColliable(cj);
                     cj.onColliable(ci);
+//                    System.out.println("hit");
                 }
             }
         }

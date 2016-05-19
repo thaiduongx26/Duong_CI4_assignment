@@ -5,7 +5,6 @@ import com.company.Models.Bird;
 import com.company.Models.Enemy;
 import com.company.Models.GameConfig;
 import com.company.Models.GameObject;
-import com.company.View.AnimationDrawer;
 import com.company.View.GameDrawer;
 import com.company.View.ImageDrawer;
 
@@ -18,7 +17,6 @@ public class BirdController extends SingleController implements Colliable {
     private static int count = 0;
     private BirdController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
-        gameVector.dy =3;
         CollisionPool.getInst().add(this);
 //        this.gameVector.dy =2;
     }
@@ -26,11 +24,11 @@ public class BirdController extends SingleController implements Colliable {
     public void move(BirdDirection birdDirection) {
         switch (birdDirection) {
             case SPACE:
-                gameVector.dy = -6;
+                gameVector.dy = -5;
 //                gameVector.dx = ;
                 break;
             case NONE:
-                gameVector.dy = 4;
+                gameVector.dy = 3;
                 break;
         }
     }
@@ -39,33 +37,26 @@ public class BirdController extends SingleController implements Colliable {
 
     public static BirdController getBirdController() {
         if (birdController == null) {
-            Bird bird = new Bird(100, 200, 40, 30);
+            Bird bird = new Bird(100, 350, 40, 30);
             ImageDrawer birdDrawer = new ImageDrawer("resources/bird.png");
             birdController = new BirdController(bird, birdDrawer);
         }
         return birdController;
     }
 
-    public static void resetBirdController(){
-         birdController = null;
-    }
-
 
     @Override
     public void run() {
         if (this.gameObject.isAlive()) {
-//            SingleController.setIsPause(false);
             Rectangle pointNext = this.gameObject.getNextRect(gameVector);
             if (GameConfig.getInst().isInScreen(pointNext)) {
                 super.run();
             } else {
                 this.gameObject.setAlive(false);
             }
+        }else{
+            SingleController.setIsPause(true);
         }
-//        else {
-//            SingleController.setIsPause(true);
-//        }
-
     }
 
     @Override
@@ -78,12 +69,12 @@ public class BirdController extends SingleController implements Colliable {
     @Override
     public void onColliable(Colliable c) {
         if (c instanceof ChimneyController) {
-            Enemy chimneyController = (Enemy) c.getGameObject();
+//            Enemy chimneyController = (Enemy) c.getGameObject();
             this.getGameObject().setAlive(false);
+            System.out.println(c.getGameObject().getX() + " + " + c.getGameObject().getY());
         }
         if(!GameConfig.getInst().isInScreen(this.gameObject.getNextRect(gameVector))){
             this.getGameObject().setAlive(false);
         }
-
     }
 }

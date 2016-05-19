@@ -1,4 +1,4 @@
-package com.company.gamescenes;
+package com.company.gamesences;
 
 /**
  * Created by qhuydtvt on 5/13/2016.

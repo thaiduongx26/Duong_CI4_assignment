@@ -1,10 +1,6 @@
-package com.company.gamescenes;
+package com.company.gamesences;
 
 import com.company.Controller.BirdController;
-import com.company.Controller.enemycontroller.ChimneyController;
-import com.company.Controller.enemycontroller.ChimneyControllerManager;
-import com.company.Models.Bird;
-import com.company.Models.GameConfig;
 import com.company.Utils;
 
 import java.awt.*;
@@ -45,14 +41,18 @@ public class ExitGameScence extends GameScence {
     public void onKeyPressed(KeyEvent e) {
 //        System.out.println("123");
         if(e.getKeyCode() == KeyEvent.VK_E) {
-            System.out.println(1);
+//            System.out.println(1);
             BirdController.getBirdController().getGameObject().setAlive(true);
             BirdController.getBirdController().getGameObject().setX(100);
             BirdController.getBirdController().getGameObject().setY(200);
 //            ChimneyControllerManager.cout = 400;
+//            PlayGameScence.getInst().reset();
+            changeGameScene(GameScenceType.RESTART);
 
-            ExitGameScence.setCheck(true);
+//            ExitGameScence.setCheck(true);
 //            System.out.println(BirdController.getBirdController().getGameObject().getX());
+
+//            changeGameScene(GameScenceType.MENU);
         }
     }
 

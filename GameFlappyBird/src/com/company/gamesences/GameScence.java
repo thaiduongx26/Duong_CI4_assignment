@@ -1,4 +1,4 @@
-package com.company.gamescenes;
+package com.company.gamesences;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -19,6 +19,9 @@ public abstract class GameScence extends Frame{
     protected void changeGameScene(GameScenceType gameScenceType) {
         if(gameSceneListener != null) {
             gameSceneListener.changeGameScence(gameScenceType);
+        }
+        else {
+            System.out.println("-------------------------null");
         }
     }
 

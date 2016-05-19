@@ -1,6 +1,5 @@
 package com.company.Controller;
 
-import com.company.Models.Bird;
 import com.company.Models.GameObject;
 import com.company.Models.Ground;
 import com.company.View.GameDrawer;
@@ -11,7 +10,7 @@ import java.awt.*;
 /**
  * Created by Wrong on 5/15/2016.
  */
-public class GroundController extends SingleController implements Colliable{
+public class GroundController extends SingleController implements Colliable {
     public GroundController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         CollisionPool.getInst().add(this);

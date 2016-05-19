@@ -6,7 +6,7 @@ import java.awt.*;
  * Created by Tran Tuan An on 5/11/2016.
  */
 public class GameConfig {
-    public static final int DEFAULT_SCREEN_WIDTH =  400;
+    public static final int DEFAULT_SCREEN_WIDTH =  800;
     public static final int DEFAULT_SCREEN_HEIGHT = 600;
     public static final int DEFAULT_THREAD_DELAY = 17;
 
