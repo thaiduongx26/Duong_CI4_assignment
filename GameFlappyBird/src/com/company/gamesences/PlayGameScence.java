@@ -1,6 +1,7 @@
 package com.company.gamesences;
 
 import com.company.Controller.*;
+import com.company.Controller.enemycontroller.ChimneyController;
 import com.company.Controller.enemycontroller.ChimneyControllerManager;
 import com.company.Models.Bird;
 import com.company.Models.GameConfig;
@@ -19,6 +20,7 @@ import java.util.Vector;
  * Created by qhuydtvt on 5/13/2016.
  */
 public class PlayGameScence extends GameScence {
+    private int count_score = 1;
     private int countScore = 0;
     private Image backgroundImage;
     private BirdController birdController;
@@ -31,7 +33,8 @@ public class PlayGameScence extends GameScence {
     public static boolean checkDeleteChimney = false;
 
     public static boolean checkReset = false;
-
+    AnimationDrawer birdNormal;
+    Bird bird;
 //    public static boolean isCheck() {
 //        return check;
 //    }
@@ -46,8 +49,8 @@ public class PlayGameScence extends GameScence {
         gameConfig = GameConfig.getInst();
         controllerVect = new Vector<Controller>();
 //        PlayGameScence.getInst().reset();
-        Bird bird = new Bird(100, 250, 50, 50);
-        AnimationDrawer birdNormal = new AnimationDrawer(
+        bird = new Bird(100, 250, 50, 50);
+        birdNormal = new AnimationDrawer(
                 new String[] {
                         "resources/bird11.png",
                         "resources/bird12.png",
@@ -55,12 +58,13 @@ public class PlayGameScence extends GameScence {
                 }
         );
         birdController = new BirdController(bird, birdNormal);
+//        this.birdController = BirdController.getBirdController();
 //        controllerVect.add(birdController);
 //        controllerVect.add(new BombControllerManager());
         chimneyControllerManager = new ChimneyControllerManager();
         chimneyControllerManager.reset();
 //        controllerVect.add(chimneyControllerManager);
-//        this.birdController = BirdController.getBirdController();
+
         this.groundController = GroundController.getGroundController();
 
         try {
@@ -94,7 +98,14 @@ public class PlayGameScence extends GameScence {
 ////                System.out.println("xxx");
 //            }
             chimneyControllerManager.run();
+            if(Score.score % 5 != 0){
+                count_score = 0;
+            }
 
+            if (Score.score % 5 == 0 && Score.score != 0 && count_score == 0){
+                count_score = 1;
+                ChimneyController.addSpeed();
+            }
         }
         else {
 //            this.reset();
@@ -122,7 +133,7 @@ public class PlayGameScence extends GameScence {
         birdController.paint(backbufferGraphics);
         groundController.paint(backbufferGraphics);
         backbufferGraphics.setFont(new Font("Segoe UI Black",Font.PLAIN,30));
-//        backbufferGraphics.drawString("Score :"+ Score.score,50,100);
+        backbufferGraphics.drawString("Score :"+ Score.score,50,100);
     }
 
     @Override
@@ -133,6 +144,15 @@ public class PlayGameScence extends GameScence {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_SPACE:
                 birdDirection = BirdDirection.SPACE;
+                bird = new Bird(birdController.getGameObject().getX(), birdController.getGameObject().getY(), 50, 50);
+                birdNormal = new AnimationDrawer(
+                        new String[] {
+                                "resources/bird21.png",
+                                "resources/bird22.png",
+                                "resources/bird23.png",
+                        }
+                );
+                birdController = new BirdController(bird, birdNormal);
                 break;
             case KeyEvent.VK_P:
                 SingleController.setIsPause(true);
@@ -148,6 +168,15 @@ public class PlayGameScence extends GameScence {
     @Override
     public void onKeyReleased(KeyEvent e) {
         BirdDirection birdDirection = BirdDirection.NONE;
+        bird = new Bird(birdController.getGameObject().getX(), birdController.getGameObject().getY(), 50, 50);
+        birdNormal = new AnimationDrawer(
+                new String[] {
+                        "resources/bird31.png",
+                        "resources/bird32.png",
+                        "resources/bird33.png",
+                }
+        );
+        birdController = new BirdController(bird, birdNormal);
         birdController.move(birdDirection);
     }
 

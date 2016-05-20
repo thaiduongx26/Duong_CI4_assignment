@@ -18,12 +18,14 @@ public class ChimneyControllerManager extends ControllerManager {
 
     private int cout = 1;
     private int count = 1;
+    private int count_score = 1;
+
 
     public void creat(int i){
         Enemy chimney1 = new Enemy(GameConfig.DEFAULT_SCREEN_WIDTH, GameConfig.getInst().getScreenHeight() - i, Enemy.DEFAULT_CHIMNEY_WIDTH,
                 Enemy.DEFAULT_CHIMNEY_HEIGHT);
         ImageDrawer imageDrawer = new ImageDrawer("resources/chimney.png");
-        Enemy chimney2 = new Enemy(GameConfig.DEFAULT_SCREEN_WIDTH, GameConfig.getInst().getScreenHeight() - i - 120 - Enemy.DEFAULT_CHIMNEY_HEIGHT,
+        Enemy chimney2 = new Enemy(GameConfig.DEFAULT_SCREEN_WIDTH, GameConfig.getInst().getScreenHeight() - i - Enemy.DEFAULT_AREA_BETWEEN_CHIMNEY - Enemy.DEFAULT_CHIMNEY_HEIGHT,
                 Enemy.DEFAULT_CHIMNEY_WIDTH, Enemy.DEFAULT_CHIMNEY_HEIGHT);
         ImageDrawer imageDrawer1 = new ImageDrawer("resources/chimney2.png");
         ChimneyController chimneyController1 = new ChimneyController(chimney1, imageDrawer);
@@ -39,28 +41,45 @@ public class ChimneyControllerManager extends ControllerManager {
         Random random = new Random();
 //        if (!PlayGameScence.checkDeleteChimney) {
         System.out.println(singleControllerVector.size());
-        if (cout == 1) {
-            cout--;
+        if (singleControllerVector.size() == 0 || singleControllerVector.size()==1) {
             creat(200 + random.nextInt(GameConfig.getInst().getScreenHeight() - 400));
 //            System.out.println(count);
         } else if (GameConfig.DEFAULT_SCREEN_WIDTH - singleControllerVector.get(singleControllerVector.size() - 1).getGameObject().getX() == 300) {
             creat(200 + random.nextInt(GameConfig.getInst().getScreenHeight() - 400));
         }
 
+
+
         /* set Score here */
 //
-//        if (BirdController.getBirdController().getGameObject().getX() <= singleControllerVector.get(0).getGameObject().getX()) {
-//            count = 1;
-//        }
-//        if (count == 1 &&
-//                BirdController.getBirdController().getGameObject().getX() >= singleControllerVector.get(0).getGameObject().getX()
-//                + Enemy.DEFAULT_CHIMNEY_WIDTH / 2) {
-//            count = 0;
-//            Score.setScore();
-//        }
+        if (BirdController.getBirdController().getGameObject().getX() <= singleControllerVector.get(0).getGameObject().getX()) {
+            count = 1;
+//            if(Score.score % 5 == 0 && Score.score !=0 && count_score == 1){
+//                ChimneyController.addSpeed();
+//                count_score = 0;
+//            }
+//            if(Score.score % 5 != 0 && count_score == 0){
+//                count_score = 1;
+//            }
+        }
+        if (count == 1 &&
+                BirdController.getBirdController().getGameObject().getX() >= singleControllerVector.get(0).getGameObject().getX()
+                + Enemy.DEFAULT_CHIMNEY_WIDTH / 2) {
+            count = 0;
+            Score.setScore();
+//            if(Score.score % 5 == 0 && Score.score !=0 && count_score == 1){
+//                ChimneyController.addSpeed();
+//                count_score = 0;
+//            }
+//            if(Score.score % 5 != 0 && count_score == 0){
+//                count_score = 1;
+//            }
+        }
+
+
 //        } else {
-
-
+//
+//
 //            PlayGameScence.checkDeleteChimney = false;
 //        }
 
@@ -113,6 +132,8 @@ public class ChimneyControllerManager extends ControllerManager {
                 iterator.remove();
             }
         }
+        Score.score = 0;
+        ChimneyController.setSpeed(Enemy.DEFAULT_SPEED);
     }
 
     private static ChimneyControllerManager inst;

@@ -1,5 +1,6 @@
 package com.company.gamesences;
 
+import com.company.Controller.BirdController;
 import com.company.Models.GameConfig;
 import com.company.Models.Ground;
 import com.company.Utils;
@@ -48,6 +49,7 @@ public class MenuGameScence extends GameScence {
     public void onKeyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_SPACE) {
             changeGameScene(GameScenceType.PLAY);
+            BirdController.count = 0;
             check = true;
         }
     }

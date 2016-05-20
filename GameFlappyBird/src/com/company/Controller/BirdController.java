@@ -15,7 +15,9 @@ import java.awt.*;
  * Created by Tran Tuan An on 5/11/2016.
  */
 public class BirdController extends SingleController implements Colliable {
-    private static int count = 0;
+    public static int count = 0;
+    public final int DEFAULT_DY = 3;
+    private int bird_dy;
     public BirdController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         CollisionPool.getInst().add(this);
@@ -25,11 +27,21 @@ public class BirdController extends SingleController implements Colliable {
     public void move(BirdDirection birdDirection) {
         switch (birdDirection) {
             case SPACE:
-                gameVector.dy = -5;
+                gameVector.dy = -6;
 //                gameVector.dx = ;
+                count = 0;
                 break;
             case NONE:
-                gameVector.dy = 3;
+                if (count == 0) {
+                    gameVector.dy = DEFAULT_DY;
+                    bird_dy = this.getGameObject().getY();
+                    count = 1;
+                } else {
+                    gameVector.dy = (this.getGameObject().getY() - bird_dy ) ;
+//                    if (this.getGameObject().getY() - bird_dy == 10){
+//                        gameVector.dy += 1;
+//                    }
+                }
                 break;
         }
     }
