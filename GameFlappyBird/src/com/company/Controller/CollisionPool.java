@@ -20,6 +20,10 @@ public class CollisionPool {
         this.colliableVector.add(c);
     }
 
+    public Vector<Colliable> getColliableVector() {
+        return colliableVector;
+    }
+
     public void run() {
 
         Iterator<Colliable> iterator = colliableVector.iterator();

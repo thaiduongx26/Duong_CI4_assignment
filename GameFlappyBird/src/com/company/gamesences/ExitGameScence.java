@@ -22,7 +22,7 @@ public class ExitGameScence extends GameScence {
     }
 
     public ExitGameScence() {
-        this.exitBackground = Utils.loadImage("resources/gameover.png");
+        this.exitBackground = Utils.loadImage("resources/press_R.png");
     }
 
 
@@ -34,15 +34,15 @@ public class ExitGameScence extends GameScence {
     @Override
     public void paint(Graphics g) {
         g.drawImage(this.exitBackground, 50, 100,
-                300, 175, null);
+                300, 400, null);
     }
 
     @Override
     public void onKeyPressed(KeyEvent e) {
 //        System.out.println("123");
-        if(e.getKeyCode() == KeyEvent.VK_E) {
+        if(e.getKeyCode() == KeyEvent.VK_R) {
 //            System.out.println(1);
-            BirdController.getBirdController().getGameObject().setAlive(true);
+//            BirdController.getBirdController().getGameObject().setAlive(true);
             BirdController.getBirdController().getGameObject().setX(100);
             BirdController.getBirdController().getGameObject().setY(200);
 //            ChimneyControllerManager.cout = 400;

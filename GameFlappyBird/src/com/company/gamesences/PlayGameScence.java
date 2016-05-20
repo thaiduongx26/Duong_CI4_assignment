@@ -2,8 +2,10 @@ package com.company.gamesences;
 
 import com.company.Controller.*;
 import com.company.Controller.enemycontroller.ChimneyControllerManager;
+import com.company.Models.Bird;
 import com.company.Models.GameConfig;
 import com.company.Models.Score;
+import com.company.View.AnimationDrawer;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -24,8 +26,11 @@ public class PlayGameScence extends GameScence {
     private GameConfig gameConfig;
     private GroundController groundController;
     private ChimneyControllerManager chimneyControllerManager;
+//    private BirdController birdController;
 
     public static boolean checkDeleteChimney = false;
+
+    public static boolean checkReset = false;
 
 //    public static boolean isCheck() {
 //        return check;
@@ -37,15 +42,25 @@ public class PlayGameScence extends GameScence {
 
     public PlayGameScence() {
       //  PlayGameScence.setCheck(true);
-        System.out.println("dang o Play ");
+//        System.out.println("dang o Play ");
         gameConfig = GameConfig.getInst();
         controllerVect = new Vector<Controller>();
 //        PlayGameScence.getInst().reset();
-        controllerVect.add(BirdController.getBirdController());
+        Bird bird = new Bird(100, 250, 50, 50);
+        AnimationDrawer birdNormal = new AnimationDrawer(
+                new String[] {
+                        "resources/bird11.png",
+                        "resources/bird12.png",
+                        "resources/bird13.png",
+                }
+        );
+        birdController = new BirdController(bird, birdNormal);
+//        controllerVect.add(birdController);
 //        controllerVect.add(new BombControllerManager());
         chimneyControllerManager = new ChimneyControllerManager();
-        controllerVect.add(chimneyControllerManager);
-        this.birdController = BirdController.getBirdController();
+        chimneyControllerManager.reset();
+//        controllerVect.add(chimneyControllerManager);
+//        this.birdController = BirdController.getBirdController();
         this.groundController = GroundController.getGroundController();
 
         try {
@@ -55,28 +70,39 @@ public class PlayGameScence extends GameScence {
         }
     }
 
+//    public void reset(){
+//        Iterator<Controller> iterator= controllerVect.iterator();
+//        while (iterator.hasNext()){
+//            Controller c = iterator.next();
+//            iterator.remove();
+//        }
+//        checkDeleteChimney = true;
+//    }
+
     public void reset(){
-        Iterator<Controller> iterator= controllerVect.iterator();
-        while (iterator.hasNext()){
-            Controller c = iterator.next();
-            iterator.remove();
-        }
         checkDeleteChimney = true;
     }
 
     @Override
     public void run() {
         CollisionPool.getInst().run();
-        if (BirdController.getBirdController().getGameObject().isAlive())
-            for (Controller controller: controllerVect){
-                controller.run();
-                System.out.println("xxx");
-            }
+
+        if (birdController.getGameObject().isAlive()) {
+            birdController.run();
+//            for (Controller controller : controllerVect) {
+//                controller.run();
+////                System.out.println("xxx");
+//            }
+            chimneyControllerManager.run();
+
+        }
         else {
-            this.reset();
+//            this.reset();
             changeGameScene(GameScenceType.EXIT);
+//            checkReset = true;
 //            PlayGameScence.getInst().reset();
         }
+
 
     }
 
@@ -89,12 +115,14 @@ public class PlayGameScence extends GameScence {
         backbufferGraphics.drawImage(backgroundImage, 0, 0,
                 gameConfig.getScreenWidth(), gameConfig.getScreenHeight(), null);
 
-        for (Controller controller : controllerVect) {
-            controller.paint(backbufferGraphics);
-        }
+//        for (Controller controller : controllerVect) {
+//            controller.paint(backbufferGraphics);
+//        }
+        chimneyControllerManager.paint(backbufferGraphics);
+        birdController.paint(backbufferGraphics);
         groundController.paint(backbufferGraphics);
         backbufferGraphics.setFont(new Font("Segoe UI Black",Font.PLAIN,30));
-        backbufferGraphics.drawString("Score :"+ Score.score,50,100);
+//        backbufferGraphics.drawString("Score :"+ Score.score,50,100);
     }
 
     @Override

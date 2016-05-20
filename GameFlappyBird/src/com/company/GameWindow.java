@@ -221,6 +221,10 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
     @Override
     public void changeGameScence(GameScenceType gameScenceType) {
         switch (gameScenceType) {
+            case MENU:
+                gameScence = new MenuGameScence();
+                gameScence.setGameSceneListener(this);
+                break;
             case PLAY:
                 gameScence = new PlayGameScence();
                 System.out.println("playgame");
@@ -233,7 +237,7 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
             case RESTART:
 //                gameScence = null;
 //                PlayGameScence.getInst().reset();
-                gameScence = new PlayGameScence();
+                gameScence = new MenuGameScence();
                 gameScence.setGameSceneListener(this);
                 break;
         }

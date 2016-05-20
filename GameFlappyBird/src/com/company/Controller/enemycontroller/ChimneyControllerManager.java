@@ -1,8 +1,6 @@
 package com.company.Controller.enemycontroller;
 
-import com.company.Controller.BirdController;
-import com.company.Controller.ControllerManager;
-import com.company.Controller.SingleController;
+import com.company.Controller.*;
 import com.company.Models.Bird;
 import com.company.Models.Enemy;
 import com.company.Models.GameConfig;
@@ -25,7 +23,7 @@ public class ChimneyControllerManager extends ControllerManager {
         Enemy chimney1 = new Enemy(GameConfig.DEFAULT_SCREEN_WIDTH, GameConfig.getInst().getScreenHeight() - i, Enemy.DEFAULT_CHIMNEY_WIDTH,
                 Enemy.DEFAULT_CHIMNEY_HEIGHT);
         ImageDrawer imageDrawer = new ImageDrawer("resources/chimney.png");
-        Enemy chimney2 = new Enemy(GameConfig.DEFAULT_SCREEN_WIDTH, GameConfig.getInst().getScreenHeight() - i - 200 - Enemy.DEFAULT_CHIMNEY_HEIGHT,
+        Enemy chimney2 = new Enemy(GameConfig.DEFAULT_SCREEN_WIDTH, GameConfig.getInst().getScreenHeight() - i - 120 - Enemy.DEFAULT_CHIMNEY_HEIGHT,
                 Enemy.DEFAULT_CHIMNEY_WIDTH, Enemy.DEFAULT_CHIMNEY_HEIGHT);
         ImageDrawer imageDrawer1 = new ImageDrawer("resources/chimney2.png");
         ChimneyController chimneyController1 = new ChimneyController(chimney1, imageDrawer);
@@ -39,37 +37,32 @@ public class ChimneyControllerManager extends ControllerManager {
         super.run();
 
         Random random = new Random();
-        if (!PlayGameScence.checkDeleteChimney) {
-            if (cout == 1) {
-                cout--;
-                creat(200 + random.nextInt(GameConfig.getInst().getScreenHeight() - 400));
+//        if (!PlayGameScence.checkDeleteChimney) {
+        System.out.println(singleControllerVector.size());
+        if (cout == 1) {
+            cout--;
+            creat(200 + random.nextInt(GameConfig.getInst().getScreenHeight() - 400));
 //            System.out.println(count);
-            } else if (GameConfig.DEFAULT_SCREEN_WIDTH - singleControllerVector.get(singleControllerVector.size() - 1).getGameObject().getX() == 300) {
-                creat(200 + random.nextInt(GameConfig.getInst().getScreenHeight() - 400));
-            }
+        } else if (GameConfig.DEFAULT_SCREEN_WIDTH - singleControllerVector.get(singleControllerVector.size() - 1).getGameObject().getX() == 300) {
+            creat(200 + random.nextInt(GameConfig.getInst().getScreenHeight() - 400));
+        }
 
         /* set Score here */
+//
+//        if (BirdController.getBirdController().getGameObject().getX() <= singleControllerVector.get(0).getGameObject().getX()) {
+//            count = 1;
+//        }
+//        if (count == 1 &&
+//                BirdController.getBirdController().getGameObject().getX() >= singleControllerVector.get(0).getGameObject().getX()
+//                + Enemy.DEFAULT_CHIMNEY_WIDTH / 2) {
+//            count = 0;
+//            Score.setScore();
+//        }
+//        } else {
 
-            if (BirdController.getBirdController().getGameObject().getX() <= singleControllerVector.get(0).getGameObject().getX()) {
-                count = 1;
-            }
-            if (count == 1 &&
-                    BirdController.getBirdController().getGameObject().getX() >= singleControllerVector.get(0).getGameObject().getX()
-                    + Enemy.DEFAULT_CHIMNEY_WIDTH / 2) {
-                count = 0;
-                Score.setScore();
-            }
-        } else {
-            Iterator<SingleController> iterator = singleControllerVector.iterator();
-            while (iterator.hasNext()){
-                SingleController s = iterator.next();
-                if (s instanceof ChimneyController){
-                    iterator.remove();
-                }
-            }
 
-            PlayGameScence.checkDeleteChimney = false;
-        }
+//            PlayGameScence.checkDeleteChimney = false;
+//        }
 
 
 
@@ -105,6 +98,21 @@ public class ChimneyControllerManager extends ControllerManager {
 //        }
 
 
+    }
+
+    public void reset(){
+        for (Colliable colliable: CollisionPool.getInst().getColliableVector()){
+            if (colliable instanceof ChimneyController){
+                colliable.getGameObject().setAlive(false);
+            }
+        }
+        Iterator<SingleController> iterator = singleControllerVector.iterator();
+        while (iterator.hasNext()){
+            SingleController s = iterator.next();
+            if (s instanceof ChimneyController){
+                iterator.remove();
+            }
+        }
     }
 
     private static ChimneyControllerManager inst;
