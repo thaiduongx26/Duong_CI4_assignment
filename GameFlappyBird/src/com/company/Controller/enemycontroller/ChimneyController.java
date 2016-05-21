@@ -8,6 +8,7 @@ import com.company.Models.Enemy;
 import com.company.Models.GameObject;
 import com.company.Models.GameVector;
 import com.company.Models.Score;
+import com.company.Utils;
 import com.company.View.GameDrawer;
 import com.company.View.ImageDrawer;
 

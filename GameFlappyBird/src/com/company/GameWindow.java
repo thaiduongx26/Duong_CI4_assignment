@@ -44,23 +44,21 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
-                System.out.println("windowOpened");
             }
 
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("windowClosing");
                 System.exit(0);
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                System.out.println("windowClosed");
+
             }
 
             @Override
             public void windowIconified(WindowEvent e) {
-                System.out.println("windowIconified");
+
             }
 
             @Override
@@ -82,7 +80,7 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                System.out.println("keyTyped");
+
             }
 
             @Override
@@ -116,7 +114,6 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
 //                } else {
 //                    dx2 = 0;
 //                }
-                // System.out.println("mouseMoved");
             }
         });
         thread = new Thread(this);
@@ -143,7 +140,6 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
 
         while(true){
 //            count++;
-//            System.out.println(count);
             try {
 
                 Point mousePoint = MouseInfo.getPointerInfo().getLocation();
@@ -191,7 +187,6 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
 
 //                if (ExitGameScence.isCheck() && gameScence instanceof ExitGameScence){
 ////                    ChimneyControllerManager.getInst().setTmp(0);
-////                    System.out.println(ChimneyControllerManager.cout);
 ////                    PlayGameScence.getInst().reset();
 //                    gameScence = new PlayGameScence();
 //
@@ -227,7 +222,6 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
                 break;
             case PLAY:
                 gameScence = new PlayGameScence();
-                System.out.println("playgame");
                 gameScence.setGameSceneListener(this);
                 break;
             case EXIT :

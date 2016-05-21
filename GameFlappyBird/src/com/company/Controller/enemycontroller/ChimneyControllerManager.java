@@ -5,6 +5,7 @@ import com.company.Models.Bird;
 import com.company.Models.Enemy;
 import com.company.Models.GameConfig;
 import com.company.Models.Score;
+import com.company.Utils;
 import com.company.View.ImageDrawer;
 import com.company.gamesences.PlayGameScence;
 
@@ -40,10 +41,8 @@ public class ChimneyControllerManager extends ControllerManager {
 
         Random random = new Random();
 //        if (!PlayGameScence.checkDeleteChimney) {
-        System.out.println(singleControllerVector.size());
         if (singleControllerVector.size() == 0 || singleControllerVector.size()==1) {
             creat(200 + random.nextInt(GameConfig.getInst().getScreenHeight() - 400));
-//            System.out.println(count);
         } else if (GameConfig.DEFAULT_SCREEN_WIDTH - singleControllerVector.get(singleControllerVector.size() - 1).getGameObject().getX() == 300) {
             creat(200 + random.nextInt(GameConfig.getInst().getScreenHeight() - 400));
         }
@@ -67,6 +66,7 @@ public class ChimneyControllerManager extends ControllerManager {
                 + Enemy.DEFAULT_CHIMNEY_WIDTH / 2) {
             count = 0;
             Score.setScore();
+            Utils.playSound("resources/score.wav",false);
 //            if(Score.score % 5 == 0 && Score.score !=0 && count_score == 1){
 //                ChimneyController.addSpeed();
 //                count_score = 0;

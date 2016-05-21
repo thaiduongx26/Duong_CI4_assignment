@@ -1,13 +1,16 @@
 package com.company.Controller;
 
+import com.company.Controller.enemycontroller.ButterflyController;
 import com.company.Controller.enemycontroller.ChimneyController;
 import com.company.Models.Bird;
 import com.company.Models.Enemy;
 import com.company.Models.GameConfig;
 import com.company.Models.GameObject;
+import com.company.Utils;
 import com.company.View.AnimationDrawer;
 import com.company.View.GameDrawer;
 import com.company.View.ImageDrawer;
+import com.company.gamesences.PlayGameScence;
 
 import java.awt.*;
 
@@ -30,8 +33,10 @@ public class BirdController extends SingleController implements Colliable {
                 gameVector.dy = -6;
 //                gameVector.dx = ;
                 count = 0;
+                Utils.playSound("resources/wing.wav",false);
                 break;
             case NONE:
+                Utils.playSound("resources/swooshing.wav",false);
                 if (count == 0) {
                     gameVector.dy = DEFAULT_DY;
                     bird_dy = this.getGameObject().getY();
@@ -97,6 +102,10 @@ public class BirdController extends SingleController implements Colliable {
         }
         if(!GameConfig.getInst().isInScreen(this.gameObject.getNextRect(gameVector))){
             this.getGameObject().setAlive(false);
+        }
+        if (c instanceof ButterflyController){
+//            c.getGameObject().setAlive(false);
+            PlayGameScence.checkButterfly = true ;
         }
     }
 }
