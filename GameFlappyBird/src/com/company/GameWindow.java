@@ -102,12 +102,12 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                gameScence.mousePressed(e);
+//                gameScence.mousePressed(e);
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                gameScence.mouseReleased(e);
+//                gameScence.mouseReleased(e);
             }
 
             @Override

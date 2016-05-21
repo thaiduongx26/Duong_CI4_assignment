@@ -44,7 +44,7 @@ public class AnimationDrawer implements GameDrawer {
                 gameObject.getWidth(), gameObject.getHeight(),
                 null);
         count++;
-        if (GameConfig.getInst().durationInMiliseconds(count) >= 50) {
+        if (GameConfig.getInst().durationInMiliseconds(count) >= 130) {
             count = 0;
             imageIdx++;
             if(imageIdx >= imageVector.size()) {

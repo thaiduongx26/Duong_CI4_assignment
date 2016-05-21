@@ -20,7 +20,7 @@ import java.util.Vector;
 public class ChimneyController extends SingleController implements Colliable {
     private static int speed = Enemy.DEFAULT_SPEED ;
     private int count = 0;
-
+    public static boolean check = false;
     public static int getSpeed() {
         return speed;
     }
@@ -37,6 +37,7 @@ public class ChimneyController extends SingleController implements Colliable {
         super(gameObject, gameDrawer);
         this.gameVector.dx = - ChimneyController.speed;
         CollisionPool.getInst().add(this);
+
     }
 
     @Override
