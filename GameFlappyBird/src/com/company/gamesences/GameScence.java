@@ -2,6 +2,7 @@ package com.company.gamesences;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 /**
  * Created by qhuydtvt on 5/13/2016.
@@ -32,4 +33,8 @@ public abstract class GameScence extends Frame{
     public abstract void onKeyPressed(KeyEvent e);
 
     public abstract void onKeyReleased(KeyEvent e);
+
+
+    public abstract void mousePressed(MouseEvent e);
+    public abstract void mouseReleased(MouseEvent e);
 }

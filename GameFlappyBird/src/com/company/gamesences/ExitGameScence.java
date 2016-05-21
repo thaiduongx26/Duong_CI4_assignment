@@ -1,16 +1,21 @@
 package com.company.gamesences;
 
 import com.company.Controller.BirdController;
+import com.company.Models.Score;
 import com.company.Utils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 /**
  * Created by Wrong on 5/15/2016.
  */
 public class ExitGameScence extends GameScence {
     Image exitBackground;
+    Image scoreImage;
+    Image highScore;
+    Image endImage;
     private static boolean check = false;
 
     public static boolean isCheck() {
@@ -22,7 +27,10 @@ public class ExitGameScence extends GameScence {
     }
 
     public ExitGameScence() {
-        this.exitBackground = Utils.loadImage("resources/press_R.png");
+        this.exitBackground = Utils.loadImage("resources/background.png");
+        this.endImage = Utils.loadImage("resources/press_R.png");
+        this.highScore = Utils.loadImage("resources/high_score_1.png");
+        this.scoreImage = Utils.loadImage("resources/high_score_2.png");
     }
 
 
@@ -33,8 +41,14 @@ public class ExitGameScence extends GameScence {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(this.exitBackground, 50, 100,
-                300, 400, null);
+        g.drawImage(this.exitBackground, 0, 0,
+                400, 600, null);
+//        if (Score.score > Score.highScore) {
+//            Score.highScore = Score.score;
+        g.drawImage(this.endImage, 20, 50, 350, 250, null);
+            g.setFont(new Font("Segoe UI Black", Font.PLAIN, 50));
+            g.drawString(String.valueOf(Score.score), 190, 300);
+//        }
     }
 
     @Override
@@ -48,7 +62,7 @@ public class ExitGameScence extends GameScence {
 //            ChimneyControllerManager.cout = 400;
 //            PlayGameScence.getInst().reset();
             changeGameScene(GameScenceType.RESTART);
-
+            Score.score = 0;
 //            ExitGameScence.setCheck(true);
 //            System.out.println(BirdController.getBirdController().getGameObject().getX());
 
@@ -58,6 +72,16 @@ public class ExitGameScence extends GameScence {
 
     @Override
     public void onKeyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
 
     }
 }

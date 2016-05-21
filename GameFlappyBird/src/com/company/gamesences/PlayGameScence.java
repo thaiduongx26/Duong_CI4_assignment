@@ -12,6 +12,7 @@ import com.company.View.ImageDrawer;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
@@ -24,6 +25,7 @@ public class PlayGameScence extends GameScence {
     private int countScore = 0;
     private Image backgroundImage;
     private BirdController birdController;
+    private BirdController birdController2;
     private Vector<Controller> controllerVect;
     private GameConfig gameConfig;
     private GroundController groundController;
@@ -35,6 +37,9 @@ public class PlayGameScence extends GameScence {
     private int count = 0;
     private int width_bird_1 = 50;
     private int height_bird_1 = 50;
+    private int width_bird_2 = 50;
+    private int height_bird_2 = 50;
+
 
     private boolean testChange = false;
 
@@ -74,6 +79,16 @@ public class PlayGameScence extends GameScence {
                 }
         );
         birdController = new BirdController(bird, birdNormal);
+
+        bird = new Bird(20,250,50,50);
+        birdNormal = new AnimationDrawer(
+                new String[]{
+                        "resources/bird11.png",
+                        "resources/bird12.png",
+                        "resources/bird13.png",
+                }
+        );
+        birdController2 = new BirdController(bird,birdNormal);
 //        this.birdController = BirdController.getBirdController();
 //        controllerVect.add(birdController);
 //        controllerVect.add(new BombControllerManager());
@@ -107,8 +122,9 @@ public class PlayGameScence extends GameScence {
     public void run() {
         CollisionPool.getInst().run();
         check1 = true;
-        if (birdController.getGameObject().isAlive()) {
+        if (birdController.getGameObject().isAlive() || birdController2.getGameObject().isAlive()) {
             birdController.run();
+            birdController2.run();
 //            for (Controller controller : controllerVect) {
 //                controller.run();
 ////                System.out.println("xxx");
@@ -127,19 +143,34 @@ public class PlayGameScence extends GameScence {
             if (checkButterfly == true) {
                 count++;
                 if (testChange == false) {
-                    changeBird1();
+                    if (birdController2.check == 1) {
+                        changeBird2();
+                    }else {
+                        changeBird1();
+                    }
                     testChange = true;
 //                    butterflyController.getGameObject().setAlive(false);
                 }
-                if (GameConfig.getInst().durationInSeconds(count) >= 3 || check1 == false) {
+                if (GameConfig.getInst().durationInSeconds(count) >= 3 ) {
                     count = 0;
 
                     checkButterfly = false;
-                    defaultBird1();
+                    if (birdController.check == 1) {
+                        defaultBird1();
+                    }else {
+                        defaultBird2();
+                    }
                     testChange = false;
 
                 }
-            }else defaultBird1();
+//                SingleController.setIsPause(true);
+            }else {
+                if (birdController.check == 1){
+                    defaultBird1();
+                }else {
+                    defaultBird2();
+                }
+            }
         } else {
 //            this.reset();
             changeGameScene(GameScenceType.EXIT);
@@ -159,14 +190,24 @@ public class PlayGameScence extends GameScence {
 //        birdController.getGameObject().setWidth(width_bird_1);
 //        birdController.getGameObject().setHeight(height_bird_1);
     }
-
+    public  void changeBird2() {
+        width_bird_2 = (int) (width_bird_2 * 1.2);
+        height_bird_2 = (int) (height_bird_2 * 1.2);
+//        birdController.getGameObject().setWidth(width_bird_1);
+//        birdController.getGameObject().setHeight(height_bird_1);
+    }
     public void defaultBird1() {
         width_bird_1 = 50;
         height_bird_1 = 50;
 //        birdController.getGameObject().setWidth(50);
 //        birdController.getGameObject().setHeight(50);
     }
-
+    public void defaultBird2() {
+        width_bird_2 = 50;
+        height_bird_2 = 50;
+//        birdController.getGameObject().setWidth(50);
+//        birdController.getGameObject().setHeight(50);
+    }
 
     @Override
     public void paint(Graphics backbufferGraphics) {
@@ -180,6 +221,7 @@ public class PlayGameScence extends GameScence {
         chimneyControllerManager.paint(backbufferGraphics);
         butterflyController.paint(backbufferGraphics);
         birdController.paint(backbufferGraphics);
+        birdController2.paint(backbufferGraphics);
         groundController.paint(backbufferGraphics);
         backbufferGraphics.setFont(new Font("Segoe UI Black", Font.PLAIN, 30));
         backbufferGraphics.drawString("Score :" + Score.score, 50, 100);
@@ -196,16 +238,18 @@ public class PlayGameScence extends GameScence {
                 bird = new Bird(birdController.getGameObject().getX(), birdController.getGameObject().getY(), width_bird_1, height_bird_1);
                 birdNormal = new AnimationDrawer(
                         new String[]{
-                                "resources/bird21.png",
-                                "resources/bird22.png",
-                                "resources/bird23.png",
+                                "resources/bird51.png",
+                                "resources/bird52.png",
+                                "resources/bird53.png",
                         }
                 );
                 birdController = new BirdController(bird, birdNormal);
                 break;
+
             case KeyEvent.VK_P:
                 SingleController.setIsPause(true);
                 break;
+
             case KeyEvent.VK_R:
                 SingleController.setIsPause(false);
                 break;
@@ -218,15 +262,53 @@ public class PlayGameScence extends GameScence {
     public void onKeyReleased(KeyEvent e) {
         BirdDirection birdDirection = BirdDirection.NONE;
         bird = new Bird(birdController.getGameObject().getX(), birdController.getGameObject().getY(), width_bird_1, height_bird_1);
+
         birdNormal = new AnimationDrawer(
                 new String[]{
-                        "resources/bird31.png",
-                        "resources/bird32.png",
-                        "resources/bird33.png",
+                        "resources/bird41.png",
+                        "resources/bird42.png",
+                        "resources/bird43.png",
                 }
         );
+
         birdController = new BirdController(bird, birdNormal);
+
+
         birdController.move(birdDirection);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        BirdDirection birdDirection = BirdDirection.SPACE;
+        bird = new Bird(birdController2.getGameObject().getX(), birdController2.getGameObject().getY(), width_bird_2, height_bird_2);
+        birdNormal = new AnimationDrawer(
+                new String[]{
+                        "resources/bird51.png",
+                        "resources/bird52.png",
+                        "resources/bird53.png",
+                }
+        );
+        birdController2 = new BirdController(bird, birdNormal);
+        birdController2.move(birdDirection);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        BirdDirection birdDirection = BirdDirection.NONE;
+        bird = new Bird(birdController2.getGameObject().getX(), birdController2.getGameObject().getY(), width_bird_2, height_bird_2);
+
+        birdNormal = new AnimationDrawer(
+                new String[]{
+                        "resources/bird41.png",
+                        "resources/bird42.png",
+                        "resources/bird43.png",
+                }
+        );
+
+        birdController2 = new BirdController(bird, birdNormal);
+
+
+        birdController2.move(birdDirection);
     }
 
 

@@ -5,6 +5,7 @@ package com.company.Models;
  */
 public class Score {
     public static int score = 0;
+    public static int highScore = 0;
 
     public int getScore() {
         return score;

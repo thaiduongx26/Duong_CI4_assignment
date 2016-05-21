@@ -17,17 +17,22 @@ import java.awt.*;
 public class BirdController extends SingleController implements Colliable {
     public static int count = 0;
     public final int DEFAULT_DY = 3;
+    public int check = 0;
+
+
     private int bird_dy;
     public BirdController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
+        check =0;
         CollisionPool.getInst().add(this);
+//        check = 0;
 //        this.gameVector.dy =2;
     }
 
     public void move(BirdDirection birdDirection) {
         switch (birdDirection) {
             case SPACE:
-                gameVector.dy = -6;
+                gameVector.dy = -10;
 //                gameVector.dx = ;
                 count = 0;
                 Utils.playSound("resources/wing.wav",false);
@@ -78,7 +83,7 @@ public class BirdController extends SingleController implements Colliable {
                 this.gameObject.setAlive(false);
             }
         }else{
-            SingleController.setIsPause(true);
+//            SingleController.setIsPause(true);
         }
     }
 
@@ -94,7 +99,7 @@ public class BirdController extends SingleController implements Colliable {
         if (c instanceof ChimneyController) {
 //            Enemy chimneyController = (Enemy) c.getGameObject();
 //            this.getGameObject().setAlive(false);
-            System.out.println(c.getGameObject().getX() + " + " + c.getGameObject().getY());
+//            System.out.println(c.getGameObject().getX() + " + " + c.getGameObject().getY());
 
         }
         if(!GameConfig.getInst().isInScreen(this.gameObject.getNextRect(gameVector))){
@@ -103,6 +108,7 @@ public class BirdController extends SingleController implements Colliable {
         if (c instanceof ButterflyController){
             c.getGameObject().setAlive(false);
             System.out.println("va cham vs Butter");
+            check = 1;
             PlayGameScence.checkButterfly = true ;
         }
     }

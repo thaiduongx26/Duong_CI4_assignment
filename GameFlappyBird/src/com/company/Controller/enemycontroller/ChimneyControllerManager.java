@@ -122,14 +122,13 @@ public class ChimneyControllerManager extends ControllerManager {
                 colliable.getGameObject().setAlive(false);
             }
         }
-        Iterator<SingleController> iterator = singleControllerVector.iterator();
-        while (iterator.hasNext()){
-            SingleController s = iterator.next();
-            if (s instanceof ChimneyController){
-                iterator.remove();
-            }
-        }
-        Score.score = 0;
+//        Iterator<SingleController> iterator = singleControllerVector.iterator();
+//        while (iterator.hasNext()){
+//            SingleController s = iterator.next();
+//            if (s instanceof ChimneyController){
+//                iterator.remove();
+//            }
+//        }
         ChimneyController.setSpeed(Enemy.DEFAULT_SPEED);
     }
 

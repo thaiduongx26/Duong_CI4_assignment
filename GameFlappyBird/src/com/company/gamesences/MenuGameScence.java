@@ -7,6 +7,7 @@ import com.company.Utils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 //import vn.edu.techkids.Utils;
 //import vn.edu.techkids.models.GameConfig;
@@ -56,6 +57,16 @@ public class MenuGameScence extends GameScence {
 
     @Override
     public void onKeyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
 
     }
 }
