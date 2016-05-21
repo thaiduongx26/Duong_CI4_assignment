@@ -43,8 +43,8 @@ public class ExitGameScence extends GameScence {
         if(e.getKeyCode() == KeyEvent.VK_R) {
 //            System.out.println(1);
 //            BirdController.getBirdController().getGameObject().setAlive(true);
-            BirdController.getBirdController().getGameObject().setX(100);
-            BirdController.getBirdController().getGameObject().setY(200);
+//            BirdController.getBirdController().getGameObject().setX(100);
+//            BirdController.getBirdController().getGameObject().setY(200);
 //            ChimneyControllerManager.cout = 400;
 //            PlayGameScence.getInst().reset();
             changeGameScene(GameScenceType.RESTART);

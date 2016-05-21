@@ -1,16 +1,12 @@
 package com.company.gamesences;
 
 import com.company.Controller.*;
-import com.company.Controller.enemycontroller.ButterflyController;
+import com.company.Controller.ButterflyController;
 import com.company.Controller.enemycontroller.ChimneyController;
 import com.company.Controller.enemycontroller.ChimneyControllerManager;
-import com.company.Models.Bird;
-import com.company.Models.Enemy;
-import com.company.Models.GameConfig;
-import com.company.Models.Score;
+import com.company.Models.*;
 import com.company.Utils;
 import com.company.View.AnimationDrawer;
-import com.company.View.GameDrawer;
 import com.company.View.ImageDrawer;
 
 import javax.imageio.ImageIO;
@@ -18,7 +14,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -34,12 +29,12 @@ public class PlayGameScence extends GameScence {
     private GroundController groundController;
     private ChimneyControllerManager chimneyControllerManager;
     private ButterflyController butterflyController;
-    private Enemy buterfly;
+    private Butterfly buterfly;
     private ImageDrawer imageDrawer;
     public static boolean checkButterfly = false;
     private int count = 0;
-    public static int width_bird_1 = 50;
-    public static int height_bird_1 = 50;
+    private int width_bird_1 = 50;
+    private int height_bird_1 = 50;
 
     private boolean testChange = false;
 
@@ -50,6 +45,8 @@ public class PlayGameScence extends GameScence {
     public static boolean checkReset = false;
     AnimationDrawer birdNormal;
     Bird bird;
+
+    public static boolean check1 = true;
 //    public static boolean isCheck() {
 //        return check;
 //    }
@@ -61,15 +58,16 @@ public class PlayGameScence extends GameScence {
     public PlayGameScence() {
         //  PlayGameScence.setCheck(true);
 //        System.out.println("dang o Play ");
+        checkButterfly = false;
         gameConfig = GameConfig.getInst();
-        buterfly = new Enemy(400,200,40,40);
+        buterfly = new Butterfly(400, 200, 40, 40);
         imageDrawer = new ImageDrawer("resources/Butterfly.png");
-        butterflyController = new ButterflyController(buterfly,imageDrawer);
+        butterflyController = new ButterflyController(buterfly, imageDrawer);
         controllerVect = new Vector<Controller>();
 //        PlayGameScence.getInst().reset();
-        bird = new Bird(100, 250, width_bird_1, height_bird_1);
+        bird = new Bird(100, 250, 50, 50);
         birdNormal = new AnimationDrawer(
-                new String[] {
+                new String[]{
                         "resources/bird11.png",
                         "resources/bird12.png",
                         "resources/bird13.png",
@@ -101,14 +99,14 @@ public class PlayGameScence extends GameScence {
 //        checkDeleteChimney = true;
 //    }
 
-    public void reset(){
+    public void reset() {
         checkDeleteChimney = true;
     }
 
     @Override
     public void run() {
         CollisionPool.getInst().run();
-
+        check1 = true;
         if (birdController.getGameObject().isAlive()) {
             birdController.run();
 //            for (Controller controller : controllerVect) {
@@ -117,33 +115,36 @@ public class PlayGameScence extends GameScence {
 //            }
             butterflyController.run();
             chimneyControllerManager.run();
-            if(Score.score % 5 != 0){
+            if (Score.score % 5 != 0) {
                 count_score = 0;
             }
 
-            if (Score.score % 5 == 0 && Score.score != 0 && count_score == 0){
+            if (Score.score % 5 == 0 && Score.score != 0 && count_score == 0) {
                 count_score = 1;
                 ChimneyController.addSpeed();
             }
 
-            if (checkButterfly == true){
+            if (checkButterfly == true) {
                 count++;
-                if (testChange == false){
+                if (testChange == false) {
                     changeBird1();
                     testChange = true;
+//                    butterflyController.getGameObject().setAlive(false);
                 }
-                if (GameConfig.getInst().durationInSeconds(count) >= 3) {
+                if (GameConfig.getInst().durationInSeconds(count) >= 3 || check1 == false) {
                     count = 0;
+
                     checkButterfly = false;
                     defaultBird1();
                     testChange = false;
+
                 }
-            }
-        }
-        else {
+            }else defaultBird1();
+        } else {
 //            this.reset();
             changeGameScene(GameScenceType.EXIT);
-            Utils.playSound("resources/hit.wav",false);
+//            defaultBird1();
+            Utils.playSound("resources/hit.wav", false);
 //            checkReset = true;
 //            PlayGameScence.getInst().reset();
         }
@@ -152,13 +153,18 @@ public class PlayGameScence extends GameScence {
     }
 
 
-    public static void changeBird1(){
-        width_bird_1 = (int)(width_bird_1*1.2);
-        height_bird_1 = (int) (height_bird_1*1.2);
+    public  void changeBird1() {
+        width_bird_1 = (int) (width_bird_1 * 1.2);
+        height_bird_1 = (int) (height_bird_1 * 1.2);
+//        birdController.getGameObject().setWidth(width_bird_1);
+//        birdController.getGameObject().setHeight(height_bird_1);
     }
-    public static void defaultBird1(){
+
+    public void defaultBird1() {
         width_bird_1 = 50;
         height_bird_1 = 50;
+//        birdController.getGameObject().setWidth(50);
+//        birdController.getGameObject().setHeight(50);
     }
 
 
@@ -175,8 +181,8 @@ public class PlayGameScence extends GameScence {
         butterflyController.paint(backbufferGraphics);
         birdController.paint(backbufferGraphics);
         groundController.paint(backbufferGraphics);
-        backbufferGraphics.setFont(new Font("Segoe UI Black",Font.PLAIN,30));
-        backbufferGraphics.drawString("Score :"+ Score.score,50,100);
+        backbufferGraphics.setFont(new Font("Segoe UI Black", Font.PLAIN, 30));
+        backbufferGraphics.drawString("Score :" + Score.score, 50, 100);
     }
 
     @Override
@@ -189,7 +195,7 @@ public class PlayGameScence extends GameScence {
                 birdDirection = BirdDirection.SPACE;
                 bird = new Bird(birdController.getGameObject().getX(), birdController.getGameObject().getY(), width_bird_1, height_bird_1);
                 birdNormal = new AnimationDrawer(
-                        new String[] {
+                        new String[]{
                                 "resources/bird21.png",
                                 "resources/bird22.png",
                                 "resources/bird23.png",
@@ -213,7 +219,7 @@ public class PlayGameScence extends GameScence {
         BirdDirection birdDirection = BirdDirection.NONE;
         bird = new Bird(birdController.getGameObject().getX(), birdController.getGameObject().getY(), width_bird_1, height_bird_1);
         birdNormal = new AnimationDrawer(
-                new String[] {
+                new String[]{
                         "resources/bird31.png",
                         "resources/bird32.png",
                         "resources/bird33.png",
@@ -227,9 +233,8 @@ public class PlayGameScence extends GameScence {
     private static PlayGameScence inst;
 
 
-
-    public static PlayGameScence getInst(){
-        if (inst == null){
+    public static PlayGameScence getInst() {
+        if (inst == null) {
             inst = new PlayGameScence();
         }
         return inst;

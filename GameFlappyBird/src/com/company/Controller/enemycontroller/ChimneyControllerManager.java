@@ -1,10 +1,7 @@
 package com.company.Controller.enemycontroller;
 
 import com.company.Controller.*;
-import com.company.Models.Bird;
-import com.company.Models.Enemy;
-import com.company.Models.GameConfig;
-import com.company.Models.Score;
+import com.company.Models.*;
 import com.company.Utils;
 import com.company.View.ImageDrawer;
 import com.company.gamesences.PlayGameScence;
@@ -121,7 +118,7 @@ public class ChimneyControllerManager extends ControllerManager {
 
     public void reset(){
         for (Colliable colliable: CollisionPool.getInst().getColliableVector()){
-            if (colliable instanceof ChimneyController){
+            if (colliable instanceof ChimneyController ){
                 colliable.getGameObject().setAlive(false);
             }
         }

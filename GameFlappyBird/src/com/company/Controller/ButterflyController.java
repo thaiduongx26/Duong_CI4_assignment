@@ -1,8 +1,11 @@
-package com.company.Controller.enemycontroller;
+package com.company.Controller;
 
+import com.company.Controller.BirdController;
 import com.company.Controller.Colliable;
 import com.company.Controller.CollisionPool;
 import com.company.Controller.SingleController;
+import com.company.Models.Bird;
+import com.company.Models.Butterfly;
 import com.company.Models.Enemy;
 import com.company.View.GameDrawer;
 
@@ -15,7 +18,7 @@ public class ButterflyController extends SingleController implements Colliable {
 
     private int count = 1;
 
-    public ButterflyController(Enemy gameObject, GameDrawer gameDrawer) {
+    public ButterflyController(Butterfly gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         CollisionPool.getInst().add(this);
     }
@@ -42,11 +45,15 @@ public class ButterflyController extends SingleController implements Colliable {
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
+        if (this.getGameObject().isAlive()) {
+            super.paint(g);
+        }
     }
 
     @Override
     public void onColliable(Colliable c) {
-
+        if(c instanceof BirdController){
+            gameObject.setAlive(false);
+        }
     }
 }
